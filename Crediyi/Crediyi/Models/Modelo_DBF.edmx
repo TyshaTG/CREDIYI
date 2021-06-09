@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CrediYiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="IdTipoDoc" Type="int" Nullable="false" />
+          <Property Name="NumDoc" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Tel" Type="varchar" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompraCabezal">
+          <Key>
+            <PropertyRef Name="Serie" />
+            <PropertyRef Name="Numero" />
+          </Key>
+          <Property Name="Serie" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Numero" Type="int" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LineaCabezal">
+          <Key>
+            <PropertyRef Name="Serie" />
+            <PropertyRef Name="Numero" />
+            <PropertyRef Name="IdLinea" />
+          </Key>
+          <Property Name="Serie" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Numero" Type="int" Nullable="false" />
+          <Property Name="IdLinea" Type="int" Nullable="false" />
+          <Property Name="IdProd" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="IdProd" />
+          </Key>
+          <Property Name="IdProd" Type="int" Nullable="false" />
+          <Property Name="DscProd" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Importe" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TiposDocumentos">
+          <Key>
+            <PropertyRef Name="IdTipoDoc" />
+          </Key>
+          <Property Name="IdTipoDoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DscTipoDoc" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Usu" />
+          </Key>
+          <Property Name="Usu" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Pass" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="NomUsu" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Clientes__IdTipo__09DE7BCC">
+          <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposDocumentos">
+              <PropertyRef Name="IdTipoDoc" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdTipoDoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CompraCab__IdCli__145C0A3F">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="CompraCabezal" Type="Self.CompraCabezal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="CompraCabezal">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LineaCabe__IdPro__1A14E395">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+          <End Role="LineaCabezal" Type="Self.LineaCabezal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="IdProd" />
+            </Principal>
+            <Dependent Role="LineaCabezal">
+              <PropertyRef Name="IdProd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdCompra">
+          <End Role="CompraCabezal" Type="Self.CompraCabezal" Multiplicity="1" />
+          <End Role="LineaCabezal" Type="Self.LineaCabezal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompraCabezal">
+              <PropertyRef Name="Serie" />
+              <PropertyRef Name="Numero" />
+            </Principal>
+            <Dependent Role="LineaCabezal">
+              <PropertyRef Name="Serie" />
+              <PropertyRef Name="Numero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CrediYiModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompraCabezal" EntityType="Self.CompraCabezal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LineaCabezal" EntityType="Self.LineaCabezal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposDocumentos" EntityType="Self.TiposDocumentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Clientes__IdTipo__09DE7BCC" Association="Self.FK__Clientes__IdTipo__09DE7BCC">
+            <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CompraCab__IdCli__145C0A3F" Association="Self.FK__CompraCab__IdCli__145C0A3F">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="CompraCabezal" EntitySet="CompraCabezal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LineaCabe__IdPro__1A14E395" Association="Self.FK__LineaCabe__IdPro__1A14E395">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="LineaCabezal" EntitySet="LineaCabezal" />
+          </AssociationSet>
+          <AssociationSet Name="IdCompra" Association="Self.IdCompra">
+            <End Role="CompraCabezal" EntitySet="CompraCabezal" />
+            <End Role="LineaCabezal" EntitySet="LineaCabezal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CrediYiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CrediYiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="CrediYiModel.Clientes" />
+          <EntitySet Name="TiposDocumentos" EntityType="CrediYiModel.TiposDocumentos" />
+          <EntitySet Name="Usuarios" EntityType="CrediYiModel.Usuarios" />
+          <AssociationSet Name="FK__Clientes__IdTipo__09DE7BCC" Association="CrediYiModel.FK__Clientes__IdTipo__09DE7BCC">
+            <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <EntitySet Name="Productos" EntityType="CrediYiModel.Productos" />
+          <EntitySet Name="CompraCabezal" EntityType="CrediYiModel.CompraCabezal" />
+          <EntitySet Name="LineaCabezal" EntityType="CrediYiModel.LineaCabezal" />
+          <AssociationSet Name="FK__CompraCab__IdCli__145C0A3F" Association="CrediYiModel.FK__CompraCab__IdCli__145C0A3F">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="CompraCabezal" EntitySet="CompraCabezal" />
+          </AssociationSet>
+          <AssociationSet Name="IdCompra" Association="CrediYiModel.IdCompra">
+            <End Role="CompraCabezal" EntitySet="CompraCabezal" />
+            <End Role="LineaCabezal" EntitySet="LineaCabezal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LineaCabe__IdPro__1A14E395" Association="CrediYiModel.FK__LineaCabe__IdPro__1A14E395">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="LineaCabezal" EntitySet="LineaCabezal" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoDoc" Type="Int32" Nullable="false" />
+          <Property Name="NumDoc" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Tel" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TiposDocumentos" Relationship="CrediYiModel.FK__Clientes__IdTipo__09DE7BCC" FromRole="Clientes" ToRole="TiposDocumentos" />
+        </EntityType>
+        <EntityType Name="TiposDocumentos">
+          <Key>
+            <PropertyRef Name="IdTipoDoc" />
+          </Key>
+          <Property Name="IdTipoDoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DscTipoDoc" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Usu" />
+          </Key>
+          <Property Name="Usu" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Pass" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="NomUsu" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__Clientes__IdTipo__09DE7BCC">
+          <End Type="CrediYiModel.TiposDocumentos" Role="TiposDocumentos" Multiplicity="1" />
+          <End Type="CrediYiModel.Clientes" Role="Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposDocumentos">
+              <PropertyRef Name="IdTipoDoc" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdTipoDoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="IdProd" />
+          </Key>
+          <Property Name="IdProd" Type="Int32" Nullable="false" />
+          <Property Name="DscProd" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Importe" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="CompraCabezal">
+          <Key>
+            <PropertyRef Name="Serie" />
+            <PropertyRef Name="Numero" />
+          </Key>
+          <Property Name="Serie" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="Int32" Nullable="false" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Clientes" Relationship="CrediYiModel.FK__CompraCab__IdCli__145C0A3F" FromRole="CompraCabezal" ToRole="Clientes" />
+          <NavigationProperty Name="LineaCabezal" Relationship="CrediYiModel.IdCompra" FromRole="CompraCabezal" ToRole="LineaCabezal" />
+        </EntityType>
+        <EntityType Name="LineaCabezal">
+          <Key>
+            <PropertyRef Name="Serie" />
+            <PropertyRef Name="Numero" />
+            <PropertyRef Name="IdLinea" />
+          </Key>
+          <Property Name="Serie" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="Int32" Nullable="false" />
+          <Property Name="IdLinea" Type="Int32" Nullable="false" />
+          <Property Name="IdProd" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CompraCabezal" Relationship="CrediYiModel.IdCompra" FromRole="LineaCabezal" ToRole="CompraCabezal" />
+          <NavigationProperty Name="Productos" Relationship="CrediYiModel.FK__LineaCabe__IdPro__1A14E395" FromRole="LineaCabezal" ToRole="Productos" />
+        </EntityType>
+        <Association Name="FK__CompraCab__IdCli__145C0A3F">
+          <End Type="CrediYiModel.Clientes" Role="Clientes" Multiplicity="1" />
+          <End Type="CrediYiModel.CompraCabezal" Role="CompraCabezal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="CompraCabezal">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdCompra">
+          <End Type="CrediYiModel.CompraCabezal" Role="CompraCabezal" Multiplicity="1" />
+          <End Type="CrediYiModel.LineaCabezal" Role="LineaCabezal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompraCabezal">
+              <PropertyRef Name="Serie" />
+              <PropertyRef Name="Numero" />
+            </Principal>
+            <Dependent Role="LineaCabezal">
+              <PropertyRef Name="Serie" />
+              <PropertyRef Name="Numero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LineaCabe__IdPro__1A14E395">
+          <End Type="CrediYiModel.Productos" Role="Productos" Multiplicity="1" />
+          <End Type="CrediYiModel.LineaCabezal" Role="LineaCabezal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="IdProd" />
+            </Principal>
+            <Dependent Role="LineaCabezal">
+              <PropertyRef Name="IdProd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CrediYiModelStoreContainer" CdmEntityContainer="CrediYiEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="CrediYiModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NumDoc" ColumnName="NumDoc" />
+                <ScalarProperty Name="IdTipoDoc" ColumnName="IdTipoDoc" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposDocumentos">
+            <EntityTypeMapping TypeName="CrediYiModel.TiposDocumentos">
+              <MappingFragment StoreEntitySet="TiposDocumentos">
+                <ScalarProperty Name="DscTipoDoc" ColumnName="DscTipoDoc" />
+                <ScalarProperty Name="IdTipoDoc" ColumnName="IdTipoDoc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="CrediYiModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="NomUsu" ColumnName="NomUsu" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Usu" ColumnName="Usu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Productos">
+            <EntityTypeMapping TypeName="CrediYiModel.Productos">
+              <MappingFragment StoreEntitySet="Productos">
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="DscProd" ColumnName="DscProd" />
+                <ScalarProperty Name="IdProd" ColumnName="IdProd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompraCabezal">
+            <EntityTypeMapping TypeName="CrediYiModel.CompraCabezal">
+              <MappingFragment StoreEntitySet="CompraCabezal">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Serie" ColumnName="Serie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LineaCabezal">
+            <EntityTypeMapping TypeName="CrediYiModel.LineaCabezal">
+              <MappingFragment StoreEntitySet="LineaCabezal">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IdProd" ColumnName="IdProd" />
+                <ScalarProperty Name="IdLinea" ColumnName="IdLinea" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Serie" ColumnName="Serie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CrediYiModelStoreContainer" CdmEntityContainer="CrediYiEntities">
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="CrediYiModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="NumDoc" ColumnName="NumDoc" />
+          <ScalarProperty Name="IdTipoDoc" ColumnName="IdTipoDoc" />
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TiposDocumentos">
+      <EntityTypeMapping TypeName="CrediYiModel.TiposDocumentos">
+        <MappingFragment StoreEntitySet="TiposDocumentos">
+          <ScalarProperty Name="DscTipoDoc" ColumnName="DscTipoDoc" />
+          <ScalarProperty Name="IdTipoDoc" ColumnName="IdTipoDoc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="CrediYiModel.Usuarios">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="NomUsu" ColumnName="NomUsu" />
+          <ScalarProperty Name="Pass" ColumnName="Pass" />
+          <ScalarProperty Name="Usu" ColumnName="Usu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Productos">
+      <EntityTypeMapping TypeName="CrediYiModel.Productos">
+        <MappingFragment StoreEntitySet="Productos">
+          <ScalarProperty Name="Importe" ColumnName="Importe" />
+          <ScalarProperty Name="DscProd" ColumnName="DscProd" />
+          <ScalarProperty Name="IdProd" ColumnName="IdProd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompraCabezal">
+      <EntityTypeMapping TypeName="CrediYiModel.CompraCabezal">
+        <MappingFragment StoreEntitySet="CompraCabezal">
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LineaCabezal">
+      <EntityTypeMapping TypeName="CrediYiModel.LineaCabezal">
+        <MappingFragment StoreEntitySet="LineaCabezal">
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="IdProd" ColumnName="IdProd" />
+          <ScalarProperty Name="IdLinea" ColumnName="IdLinea" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

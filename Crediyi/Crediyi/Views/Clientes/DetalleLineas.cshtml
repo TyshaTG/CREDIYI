@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Crediyi.Models.LineaCabezal>
+
+@{
+    ViewBag.Title = "DetalleLineas";
+}
+
+<h2>Detalle Lineas</h2>
+
+@ViewBag.Mensaje
+
+<p>
+    @Html.ActionLink("Inicio ", "MenuPrincipal", "Home") |
+    @Html.ActionLink(" Volver a Clientes", "ListarClientes")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdLinea)
+        </th>
+        <th>            
+            @Html.DisplayNameFor(model => model.IdProd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Productos.DscProd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+      
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdLinea)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdProd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Productos.DscProd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cantidad)
+        </td>
+        <td>
+         
+        </td>
+    </tr>
+}
+
+</table>
+

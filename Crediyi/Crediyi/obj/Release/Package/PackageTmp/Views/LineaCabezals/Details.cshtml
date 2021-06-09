@@ -1,0 +1,42 @@
+﻿@model Crediyi.Models.LineaCabezal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LineaCabezal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompraCabezal.Serie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompraCabezal.Serie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Productos.DscProd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Productos.DscProd)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdLinea }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

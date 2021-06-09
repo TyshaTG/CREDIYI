@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Crediyi.Models.CompraCabezal>
+
+@{
+    ViewBag.Title = "ReporteDeComprasGenerico";
+}
+
+<h2>Reporte De Compras</h2>
+
+<p>
+    @Html.ActionLink("Crear Compra", "AltaCompraCabezal", "CompraCabezal") | 
+    @Html.ActionLink("Inicio ", "MenuPrincipal", "Home")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Serie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clientes.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImpTotal)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clientes.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImpTotal)
+            </td>
+
+            <td>
+
+                |  @Html.ActionLink("Detalle Lineas", "DetalleLineasTotal", new { item.Serie, item.Numero }) |
+
+            </td>
+        </tr>
+    }
+
+</table>

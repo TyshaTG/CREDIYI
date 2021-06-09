@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "MenuPrincipal";
+}
+
+<h2>MenuPrincipal</h2>
+
+
+@Html.ActionLink("Crear Cabezal", "Create", "CompraCabezals", new { area = "" }, new { @class = "navbar-brand" })
+<br />
+
+<hr />
+@Html.ActionLink("Crear Lineas", "Create", "LineaCabezals", new { area = "" }, new { @class = "navbar-brand" })
+<br />
+
+<hr />
+@Html.ActionLink("Listar Compras", "Details", "CompraCabezals", new { area = "" }, new { @class = "navbar-brand" })
+<br />

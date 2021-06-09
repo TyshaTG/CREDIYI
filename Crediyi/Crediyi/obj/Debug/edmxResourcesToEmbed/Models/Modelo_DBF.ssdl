@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CrediYiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="int" Nullable="false" />
+    <Property Name="IdTipoDoc" Type="int" Nullable="false" />
+    <Property Name="NumDoc" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Tel" Type="varchar" MaxLength="9" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CompraCabezal">
+    <Key>
+      <PropertyRef Name="Serie" />
+      <PropertyRef Name="Numero" />
+    </Key>
+    <Property Name="Serie" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="Numero" Type="int" Nullable="false" />
+    <Property Name="IdCliente" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LineaCabezal">
+    <Key>
+      <PropertyRef Name="Serie" />
+      <PropertyRef Name="Numero" />
+      <PropertyRef Name="IdLinea" />
+    </Key>
+    <Property Name="Serie" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="Numero" Type="int" Nullable="false" />
+    <Property Name="IdLinea" Type="int" Nullable="false" />
+    <Property Name="IdProd" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="IdProd" />
+    </Key>
+    <Property Name="IdProd" Type="int" Nullable="false" />
+    <Property Name="DscProd" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Importe" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TiposDocumentos">
+    <Key>
+      <PropertyRef Name="IdTipoDoc" />
+    </Key>
+    <Property Name="IdTipoDoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DscTipoDoc" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Usu" />
+    </Key>
+    <Property Name="Usu" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Pass" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="NomUsu" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Clientes__IdTipo__09DE7BCC">
+    <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="1" />
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposDocumentos">
+        <PropertyRef Name="IdTipoDoc" />
+      </Principal>
+      <Dependent Role="Clientes">
+        <PropertyRef Name="IdTipoDoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompraCab__IdCli__145C0A3F">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="CompraCabezal" Type="Self.CompraCabezal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="CompraCabezal">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LineaCabe__IdPro__1A14E395">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="LineaCabezal" Type="Self.LineaCabezal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="IdProd" />
+      </Principal>
+      <Dependent Role="LineaCabezal">
+        <PropertyRef Name="IdProd" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IdCompra">
+    <End Role="CompraCabezal" Type="Self.CompraCabezal" Multiplicity="1" />
+    <End Role="LineaCabezal" Type="Self.LineaCabezal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompraCabezal">
+        <PropertyRef Name="Serie" />
+        <PropertyRef Name="Numero" />
+      </Principal>
+      <Dependent Role="LineaCabezal">
+        <PropertyRef Name="Serie" />
+        <PropertyRef Name="Numero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CrediYiModelStoreContainer">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CompraCabezal" EntityType="Self.CompraCabezal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LineaCabezal" EntityType="Self.LineaCabezal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TiposDocumentos" EntityType="Self.TiposDocumentos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Clientes__IdTipo__09DE7BCC" Association="Self.FK__Clientes__IdTipo__09DE7BCC">
+      <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
+      <End Role="Clientes" EntitySet="Clientes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompraCab__IdCli__145C0A3F" Association="Self.FK__CompraCab__IdCli__145C0A3F">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="CompraCabezal" EntitySet="CompraCabezal" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LineaCabe__IdPro__1A14E395" Association="Self.FK__LineaCabe__IdPro__1A14E395">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="LineaCabezal" EntitySet="LineaCabezal" />
+    </AssociationSet>
+    <AssociationSet Name="IdCompra" Association="Self.IdCompra">
+      <End Role="CompraCabezal" EntitySet="CompraCabezal" />
+      <End Role="LineaCabezal" EntitySet="LineaCabezal" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

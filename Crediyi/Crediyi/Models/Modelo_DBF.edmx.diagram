@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0d47cf91f0e340f1bf23b511143ed06c" Name="Diagram1">
+        <EntityTypeShape EntityType="CrediYiModel.Clientes" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="CrediYiModel.TiposDocumentos" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="CrediYiModel.Usuarios" Width="1.5" PointX="2.25" PointY="4.875" />
+        <AssociationConnector Association="CrediYiModel.FK__Clientes__IdTipo__09DE7BCC" />
+        <EntityTypeShape EntityType="CrediYiModel.Productos" Width="1.5" PointX="4.375" PointY="4.875" />
+        <EntityTypeShape EntityType="CrediYiModel.CompraCabezal" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="CrediYiModel.LineaCabezal" Width="1.5" PointX="7.5" PointY="2.75" />
+        <AssociationConnector Association="CrediYiModel.FK__CompraCab__IdCli__145C0A3F" />
+        <AssociationConnector Association="CrediYiModel.IdCompra" />
+        <AssociationConnector Association="CrediYiModel.FK__LineaCabe__IdPro__1A14E395" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CrediYiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="Int32" Nullable="false" />
+    <Property Name="TipoDoc" Type="Int32" Nullable="false" />
+    <Property Name="Numdoc" Type="Int32" Nullable="false" />
+    <Property Name="NomCli" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Tel" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="TiposDocumentos" Relationship="Self.FK__Clientes__TipoDo__09DE7BCC" FromRole="Clientes" ToRole="TiposDocumentos" />
+  </EntityType>
+  <EntityType Name="CompraCabezal">
+    <Key>
+      <PropertyRef Name="IdCabezal" />
+    </Key>
+    <Property Name="IdCabezal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Serie" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Numero" Type="Int32" Nullable="false" />
+    <Property Name="IdCliente" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK__CompraCab__IdCli__145C0A3F" FromRole="CompraCabezal" ToRole="Clientes" />
+  </EntityType>
+  <EntityType Name="LineaCabezal">
+    <Key>
+      <PropertyRef Name="IdLinea" />
+    </Key>
+    <Property Name="IdLinea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdProd" Type="Int32" Nullable="false" />
+    <Property Name="IdCabezal" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CompraCabezal" Relationship="Self.FK__LineaCabe__IdCab__1B0907CE" FromRole="LineaCabezal" ToRole="CompraCabezal" />
+    <NavigationProperty Name="Productos" Relationship="Self.FK__LineaCabe__IdPro__1A14E395" FromRole="LineaCabezal" ToRole="Productos" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="IdProd" />
+    </Key>
+    <Property Name="IdProd" Type="Int32" Nullable="false" />
+    <Property Name="DscProd" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Importe" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="TiposDocumentos">
+    <Key>
+      <PropertyRef Name="IdTipoDoc" />
+    </Key>
+    <Property Name="IdTipoDoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DscTipoDoc" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Usu" />
+    </Key>
+    <Property Name="Usu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pass" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NomUsu" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Clientes__TipoDo__09DE7BCC">
+    <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="1" />
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposDocumentos">
+        <PropertyRef Name="IdTipoDoc" />
+      </Principal>
+      <Dependent Role="Clientes">
+        <PropertyRef Name="TipoDoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CompraCab__IdCli__145C0A3F">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="CompraCabezal" Type="Self.CompraCabezal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="CompraCabezal">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LineaCabe__IdCab__1B0907CE">
+    <End Role="CompraCabezal" Type="Self.CompraCabezal" Multiplicity="1" />
+    <End Role="LineaCabezal" Type="Self.LineaCabezal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompraCabezal">
+        <PropertyRef Name="IdCabezal" />
+      </Principal>
+      <Dependent Role="LineaCabezal">
+        <PropertyRef Name="IdCabezal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LineaCabe__IdPro__1A14E395">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="LineaCabezal" Type="Self.LineaCabezal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="IdProd" />
+      </Principal>
+      <Dependent Role="LineaCabezal">
+        <PropertyRef Name="IdProd" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CrediYiEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+    <EntitySet Name="CompraCabezal" EntityType="Self.CompraCabezal" />
+    <EntitySet Name="LineaCabezal" EntityType="Self.LineaCabezal" />
+    <EntitySet Name="Productos" EntityType="Self.Productos" />
+    <EntitySet Name="TiposDocumentos" EntityType="Self.TiposDocumentos" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+    <AssociationSet Name="FK__Clientes__TipoDo__09DE7BCC" Association="Self.FK__Clientes__TipoDo__09DE7BCC">
+      <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
+      <End Role="Clientes" EntitySet="Clientes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CompraCab__IdCli__145C0A3F" Association="Self.FK__CompraCab__IdCli__145C0A3F">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="CompraCabezal" EntitySet="CompraCabezal" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LineaCabe__IdCab__1B0907CE" Association="Self.FK__LineaCabe__IdCab__1B0907CE">
+      <End Role="CompraCabezal" EntitySet="CompraCabezal" />
+      <End Role="LineaCabezal" EntitySet="LineaCabezal" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LineaCabe__IdPro__1A14E395" Association="Self.FK__LineaCabe__IdPro__1A14E395">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="LineaCabezal" EntitySet="LineaCabezal" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

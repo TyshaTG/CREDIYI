@@ -1,0 +1,58 @@
+﻿@model Crediyi.Models.Clientes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Clientes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Numdoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numdoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomCli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomCli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TiposDocumentos.DscTipoDoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TiposDocumentos.DscTipoDoc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdCliente }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
